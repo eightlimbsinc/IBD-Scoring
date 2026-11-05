@@ -244,6 +244,14 @@ qSOFA: RR ≥ 22, altered mentation, SBP ≤ 100 (count 0–3; incomplete if any
 SIRS: T > 38 or < 36; HR > 90; RR > 20; WBC > 12 or < 4 (count 0–4; same incomplete rule).
 MAP = (SBP + 2 × DBP) / 3.
 
+### 4.0 Escalation line (decided 2026-11-05)
+Every `emergency` warning is followed by the configured escalation line, default **"Inform the responsible doctor now, per local protocol."** (category D, `src/clinical/spec/local-protocol.ts`; wording pending GI sign-off). It tells the user who to notify; it never recommends a treatment, admission, discharge or surgery.
+
+### 4.0.1 Who enters exam-dependent items (decided 2026-11-05)
+- Nurses and interns **may enter** bedside exam findings (tenderness, guarding/rigidity/rebound, distension, abdominal mass, perianal swelling/fluctuance, mentation), because these drive the emergency warnings. Each finding can be "Not assessed"; the "Examined by" role is recorded and printed on the report.
+- **Physician-only items:** Mayo physician global assessment and endoscopic subscores (Mayo, SES-CD, Rutgeerts). Until a physician enters them, the dependent scores show as incomplete.
+- PDAI exam items may be entered by any role, marked with the examiner's role.
+
 ### 4.1 Summary status precedence
 1. Any `emergency` warning → **Emergency warning** (red).
 2. Else any disease activity score with approved band `severe` → **Severe disease activity**.

@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* Soft clinical design system — neumorphism adapted for legibility.
+   Shadows are decoration only; every control also has a visible border and focus ring. */
+:root {
+  --bg: #e6ebf1;
+  --surface: #e6ebf1;
+  --shadow-light: #ffffff;
+  --shadow-dark: #bec8d4;
+  --ink: #0b2545;          /* ≥ 10:1 on --bg */
+  --ink-muted: #3f5068;    /* ≥ 6:1 on --bg */
+  --line: #a9b5c4;
+  --focus: #1f5fbf;
+  --accent: #134e8a;
+  --accent-ink: #ffffff;
+
+  --emergency: #b42318;
+  --emergency-bg: #fde8e6;
+  --severe: #a64205;
+  --severe-bg: #fdeedc;
+  --moderate: #7a5600;
+  --moderate-bg: #fbf1d3;
+  --lower: #0b6e55;
+  --lower-bg: #dcf3ea;
+  --incomplete: #3f5068;
+  --incomplete-bg: #e1e6ec;
+  --info: #134e8a;
+  --info-bg: #e0ebf7;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-focus: var(--focus);
+  --color-accent: var(--accent);
+  --color-emergency: var(--emergency);
+  --color-emergency-bg: var(--emergency-bg);
+  --color-severe: var(--severe);
+  --color-severe-bg: var(--severe-bg);
+  --color-moderate: var(--moderate);
+  --color-moderate-bg: var(--moderate-bg);
+  --color-lower: var(--lower);
+  --color-lower-bg: var(--lower-bg);
+  --color-incomplete: var(--incomplete);
+  --color-incomplete-bg: var(--incomplete-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+@utility raised {
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+}
+@utility raised-sm {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+}
+@utility well {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+}
+@utility pressed {
+    border: 1px solid var(--accent);
+    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+}
+@utility focus-ring {
+  &:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+}
+
+@layer base {
+  input, select, textarea, button {
+    font-family: inherit;
+    color: inherit;
+  }
+}
+
+/* iOS: avoid zoom on focus (inputs ≥ 16px) and respect safe areas */
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .raised, .raised-sm, .well { box-shadow: none !important; border: 1px solid #999 !important; }
+}

@@ -68,7 +68,9 @@ Classic neumorphism has very low contrast (controls barely distinguished from th
 - Plain-language labels with the scoring term underneath (e.g. "How many stools in the last 24 h?" / *SCCAI day frequency*).
 - Inline "what does this mean?" definitions for each answer (e.g. what "definite and tender mass" means).
 - Items that need physician judgement or procedures — **Mayo physician global assessment, endoscopic subscores, abdominal mass, PDAI exam items** — are marked "clinician examination" and can be left "Not assessed"; the score then shows as incomplete rather than guessed. **Question for GI:** should nurses enter these at all?
-- Emergency warnings are written as facts ("Meets criteria for acute severe UC", "Possible bowel obstruction"), not instructions. Whether to add a line such as "Inform the responsible doctor now, per local protocol" is a **local protocol decision for the GI/ED lead** (category D).
+- Emergency warnings are written as facts ("Meets criteria for acute severe UC", "Possible bowel obstruction"). **Decided 2026-11-05:** each emergency warning is followed by "Inform the responsible doctor now, per local protocol." (configurable; wording pending GI sign-off).
+- **Decided 2026-11-05:** nurses and interns enter bedside exam findings (they drive warnings), with "Not assessed" available and the examiner's role recorded. The Mayo PGA and endoscopy subscores are physician-only.
+- **Reviewer:** the product owner's gastroenterologist signs off via `GI-REVIEW-CHECKLIST.md`.
 
 ## 7. Build order (after this review)
 1. Clinical safety doc + design tokens / soft-UI components.
