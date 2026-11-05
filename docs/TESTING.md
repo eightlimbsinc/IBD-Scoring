@@ -1,12 +1,13 @@
 # Testing
 
-Run with `npm test` (Vitest). Status on 2026-11-05: **156 tests passing**, 4 files.
+Run with `npm test` (Vitest). Status on 2026-11-05: **160 tests passing**, 5 files.
 
 | File | What it covers |
 | --- | --- |
 | `tests/clinical/units.test.ts` | Unit conversions (Hb g/L↔g/dL, CRP mg/dL↔mg/L, creatinine µmol/L↔mg/dL, lactate, bilirubin, WBC, °F, lb, in), plausibility catching unit slips, BMI, MAP |
 | `tests/clinical/assessment-schema.test.ts` | Validation: required fields, implausible vitals, DBP ≥ SBP, °F/°C, bloody > total stools, lab status vs value, C. difficile result, pathway by age |
 | `tests/clinical/scores.test.ts` | Each score: minimum, maximum, every response option, band boundaries, missing/unknown items → incomplete, unit conversion inside T&W, pending labs not treated as normal |
+| `tests/clinical/pdf-text.test.ts` | PDF text: superscript units stay unambiguous (×10^9/L), ≥/≤ replaced |
 | `tests/clinical/scenarios.test.ts` | 11 synthetic patients end to end (scores, warnings, missing investigations, summary level), plus determinism |
 
 ## Synthetic scenarios — hand-calculated reference results
@@ -31,6 +32,7 @@ All patients are made up (`src/clinical/demo-cases.ts`). Expected values were ca
 - All screens render; no console errors.
 - Demo case → triage summary → report → feedback.
 - Offline: after one online visit, the app reloads offline, loads a demo case and shows all screens; status chip reads "Offline".
+- PDF (Android Pixel 7 profile, offline): Save / share PDF downloads a 6-page A4 report; text checked with pdftotext.
 
 ## Not yet covered
 - Automated UI/E2E tests in CI (manual Playwright script only).

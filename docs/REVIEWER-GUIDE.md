@@ -26,7 +26,7 @@ Once installed, the app opens even without signal. Changes we make appear automa
 2. The app jumps to the **triage summary**: emergency warnings first, then physiological instability, severe activity, surgical and infection flags, the scores and the missing investigations.
 3. Tap **How this was calculated** under any score to see each item and its points.
 4. Tap the steps at the top (**Patient · Exam · Scores · Vitals · Labs**) to change answers. The summary updates immediately.
-5. Tap **Create report** to see the printable report.
+5. Tap **Create report**, then **Save / share PDF** to get the report as a PDF (send it to yourself, save to Files or Drive).
 6. You can also tap **Assess** and enter your own made-up case from scratch.
 
 ## 3. Leave feedback

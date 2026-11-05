@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { buildReportPdf, deliverPdf } from "./pdf";
 import type { Assessment } from "@/clinical/assessment-schema";
 import { DIAGNOSES, EXAM_TRI, IMMUNO_MEDS, LAB_STATUS, NUMERIC_LABS, PRESENTATION_TRI, ROLES } from "@/clinical/assessment-schema";
 import type { AssessmentOutput } from "@/clinical/types";
@@ -48,6 +50,7 @@ function download(name: string, content: string, type: string) {
 export function Report() {
   const live = useLiveOutput();
   const { started, demoTitle } = useAssessment();
+  const [pdfState, setPdfState] = useState<"" | "working" | "shared" | "downloaded" | "error">("");
 
   if (!started) {
     return (
@@ -76,6 +79,18 @@ export function Report() {
     download(`${fileBase}.json`, JSON.stringify({ app: APP_VERSION, specVersion: SPEC_VERSION, synthetic: Boolean(demoTitle), assessment: a, result: out }, null, 2), "application/json");
   };
 
+  const savePdf = async () => {
+    if (!demoTitle && !confirm("The PDF contains the patient identifiers you entered. Only save or send it through an authorised channel. Continue?")) return;
+    setPdfState("working");
+    try {
+      const blob = await buildReportPdf(a, out, demoTitle);
+      const r = await deliverPdf(blob, `${fileBase}.pdf`);
+      setPdfState(r === "cancelled" ? "" : r);
+    } catch {
+      setPdfState("error");
+    }
+  };
+
   const emergencies = out.warnings.filter((w) => w.severity === "emergency");
   const otherWarnings = out.warnings.filter((w) => w.severity !== "emergency");
   const usedRefs = Array.from(new Set(out.scores.flatMap((s) => s.references.map((r) => `${r.citation}${r.doi ? ` — doi:${r.doi}` : ""}`)).concat(out.warnings.map((w) => w.source))));
@@ -84,11 +99,17 @@ export function Report() {
     <div className="space-y-5">
       <div className="no-print space-y-3">
         <h1 className="text-[28px] font-semibold tracking-tight">Report</h1>
+        <Button type="button" variant="primary" className="w-full" disabled={pdfState === "working"} onClick={savePdf}>
+          {pdfState === "working" ? "Creating PDF…" : "Save / share PDF"}
+        </Button>
         <div className="grid grid-cols-2 gap-3">
-          <Button type="button" variant="primary" onClick={() => window.print()}>Print / Save PDF</Button>
+          <Button type="button" onClick={() => window.print()}>Print</Button>
           <Button type="button" onClick={exportJson}>Export data</Button>
         </div>
-        <p className="text-[14px] text-ink-muted">On iPhone: Print → pinch out on the preview → Share → Save to Files to keep a PDF. Nothing is stored by the app.</p>
+        {pdfState === "downloaded" && <p role="status" className="text-[14px] font-semibold text-lower">PDF saved to Downloads.</p>}
+        {pdfState === "shared" && <p role="status" className="text-[14px] font-semibold text-lower">PDF shared.</p>}
+        {pdfState === "error" && <p role="alert" className="text-[14px] font-semibold text-emergency">Could not create the PDF. Try Print instead.</p>}
+        <p className="text-[14px] text-ink-muted">Save / share PDF opens your phone&apos;s share sheet: choose Files, Drive, Messages or email. Nothing is stored by the app.</p>
         <FeedbackButton target="screen:report" label="Report layout" />
       </div>
 
