@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { ConnectionStatus } from "./ConnectionStatus";
+import { ThemeHeaderButton } from "./ThemeQuick";
 import { CLINICALLY_APPROVED, SPEC_VERSION } from "@/clinical/spec/version";
 import { cx } from "@/ui/primitives";
 
@@ -22,18 +23,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto flex min-h-dvh max-w-3xl flex-col">
       <header className="safe-top no-print sticky top-0 z-20 bg-bg/95 px-4 pb-2 backdrop-blur">
-        <div className="flex items-center justify-between pt-3">
-          <div>
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink-muted">IBD Emergency Assessment</p>
-          </div>
+        <div className="flex items-center justify-between gap-2 pt-3">
+          <p className="truncate text-[13px] font-semibold uppercase tracking-wider text-ink-muted">IBD Assess</p>
           <div className="flex items-center gap-2">
             <ConnectionStatus />
-            <Link href="/settings/" aria-label="Theme and settings" className="focus-ring raised-sm flex h-9 w-9 items-center justify-center rounded-full text-ink-muted">
-              <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3a9 9 0 100 18c1 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.8.7-1.5 1.5-1.5H16a5 5 0 005-5c0-4.4-4-7.8-9-7.8z" />
-                <circle cx="7.5" cy="11" r="1" /><circle cx="10" cy="7.5" r="1" /><circle cx="14.5" cy="7.5" r="1" />
-              </svg>
-            </Link>
+            <ThemeHeaderButton />
           </div>
         </div>
         {!CLINICALLY_APPROVED && (

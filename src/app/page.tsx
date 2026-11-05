@@ -7,6 +7,7 @@ import { DIAGNOSES } from "@/clinical/assessment-schema";
 import { DEMO_CASES } from "@/clinical/demo-cases";
 import { Badge, Banner, Button, Card } from "@/ui/primitives";
 import { useLiveOutput } from "@/features/summary/useLiveOutput";
+import { ThemeSegmented } from "@/features/shell/ThemeQuick";
 
 function Current() {
   const { form, reset, demoTitle } = useAssessment();
@@ -43,6 +44,10 @@ export default function Home() {
           </Link>
         </Card>
       )}
+
+      <Card title="Choose a look" subtitle="ER is flat and high-contrast like hospital ER systems; ER Night is its dark version. Change it anytime with the Theme button at the top.">
+        <ThemeSegmented />
+      </Card>
 
       <Card title="Try a demo case" subtitle="Made-up patients for review and training. Tap one to load it and jump to the triage summary.">
         <ul className="space-y-2">

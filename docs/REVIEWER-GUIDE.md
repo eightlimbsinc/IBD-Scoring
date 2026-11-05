@@ -28,7 +28,7 @@ Once installed, the app opens even without signal. Changes we make appear automa
 4. Tap the steps at the top (**Patient · Exam · Scores · Vitals · Labs**) to change answers. The summary updates immediately.
 5. Tap **Create report**, then **Save / share PDF** to get the report as a PDF (send it to yourself, save to Files or Drive).
 6. You can also tap **Assess** and enter your own made-up case from scratch.
-7. Try the three **themes**: tap the palette icon (top right). **Soft** is the original look, **ER** is flat and high-contrast like hospital ER systems, **ER Night** is the dark version. Tell us which works best for the ER (there's a 💬 Comment button there too).
+7. Try the three **themes**: tap the **Theme** button (top right) or use **Choose a look** on Home. **Soft** is the original look, **ER** is flat and high-contrast like hospital ER systems, **ER Night** is the dark version. Tell us which works best for the ER (there's a 💬 Comment button there too).
 
 ## 3. Leave feedback
 
