@@ -6,7 +6,10 @@ Mobile-first PWA to help ED nurses and interns assess patients with inflammatory
 
 ## Status
 - Phase 1 — research and specification: done, awaiting GI sign-off (`docs/GI-REVIEW-CHECKLIST.md`).
-- Phase 2 — app shell, soft-UI design system, 5-step assessment form: done. **Scores and warnings are not active yet.**
+- Phase 2 — app shell, soft-UI design system, assessment form: done.
+- Phase 3 — draft scoring, emergency warnings, triage summary, printable report, reviewer feedback, 11 demo cases, home-screen install with offline mode: done. **Draft for clinical review — not for patient care.**
+
+Live: https://ibd-scoring.netlify.app/ · Reviewer instructions: [`docs/REVIEWER-GUIDE.md`](docs/REVIEWER-GUIDE.md)
 
 ## Run locally
 ```bash
@@ -23,6 +26,8 @@ npm test
 - [`docs/IBD-CLINICAL-RESEARCH.md`](docs/IBD-CLINICAL-RESEARCH.md) — scoring systems, emergency criteria, references, open questions.
 - [`docs/IBD-SCORING-SPECIFICATIONS.md`](docs/IBD-SCORING-SPECIFICATIONS.md) — exact calculation and warning-rule specs, with the sign-off table.
 - [`docs/GI-REVIEW-CHECKLIST.md`](docs/GI-REVIEW-CHECKLIST.md) — decisions for the gastroenterologist, with proposed defaults.
+- [`docs/TESTING.md`](docs/TESTING.md) — tests and hand-calculated scenarios.
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — Netlify setup.
 - [`docs/CLINICAL-SAFETY.md`](docs/CLINICAL-SAFETY.md) — intended use, hazards and controls.
 - [`docs/ARCHITECTURE-PROPOSAL.md`](docs/ARCHITECTURE-PROPOSAL.md) — v1 architecture (no stored patient data, soft-UI design).
 
