@@ -15,7 +15,7 @@ Please also check each scoring table in the research doc against the original pa
 | PU-1 | Age for pediatric pathway | Under 18 years | ☐ | |
 | VS-1 | Tachycardia warning | HR > 100 = warning; HR > 120 = emergency | ☐ | |
 | VS-1 | Hypotension warning | SBP < 90 or MAP < 65 | ☐ | |
-| BL-1 | Significant bleeding warning | Rectal bleeding **and** (SBP < 90, HR > 100, HR/SBP ≥ 1.0 or Hb < 7 g/dL) | ☐ | |
+| BL-1 | Significant bleeding warning | Rectal bleeding **and** (SBP < 90, HR/SBP ≥ 1.0 or Hb < 7 g/dL). HR > 100 alone was dropped: almost every UC flare has bleeding, so it fired on febrile tachycardia | ☐ | |
 | SP-1 | Sepsis warning | qSOFA ≥ 2, or SIRS ≥ 2 with suspected infection, or lactate ≥ 2 mmol/L — or use our hospital's sepsis protocol | ☐ | |
 | TM-1 | "Possible toxic megacolon" without imaging | Distension + ≥ 3 Jalan systemic criteria | ☐ | |
 | OB-1 | Obstruction warning | Cannot pass stool/gas, **or** vomiting + distension | ☐ | |

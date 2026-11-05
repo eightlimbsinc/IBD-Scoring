@@ -1,22 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAssessment } from "./AssessmentProvider";
-import { LabsStep, PatientStep, PresentationStep, ReviewStep, VitalsStep } from "./steps";
+import { ActivityStep } from "./ActivityStep";
+import { LabsStep, PatientStep, PresentationStep, VitalsStep } from "./steps";
+import { ResultStep } from "@/features/summary/ResultStep";
 import { Button, cx } from "@/ui/primitives";
 
 const STEPS = [
   { key: "patient", label: "Patient", short: "Patient", Comp: PatientStep, fields: ["patient"] },
-  { key: "presentation", label: "Presentation & exam", short: "Exam", Comp: PresentationStep, fields: ["presentation", "exam"] },
+  { key: "presentation", label: "Symptoms & exam", short: "Exam", Comp: PresentationStep, fields: ["presentation", "exam"] },
+  { key: "activity", label: "Score questions", short: "Scores", Comp: ActivityStep, fields: ["activity"] },
   { key: "vitals", label: "Vital signs", short: "Vitals", Comp: VitalsStep, fields: ["vitals"] },
-  { key: "labs", label: "Laboratory", short: "Labs", Comp: LabsStep, fields: ["labs"] },
-  { key: "review", label: "Review", short: "Review", Comp: ReviewStep, fields: [] },
+  { key: "labs", label: "Labs & imaging", short: "Labs", Comp: LabsStep, fields: ["labs", "imaging"] },
+  { key: "result", label: "Triage summary", short: "Result", Comp: ResultStep, fields: [] },
 ] as const;
 
 export function Wizard() {
-  const { form, setStarted, setCompleted } = useAssessment();
-  const [i, setI] = useState(0);
+  const { form, setStarted, setCompleted, demoTitle } = useAssessment();
+  const params = useSearchParams();
+  const [i, setI] = useState(() => (params.get("step") === "result" ? STEPS.length - 1 : 0));
   const router = useRouter();
   const top = useRef<HTMLDivElement>(null);
   const step = STEPS[i];
@@ -36,7 +40,7 @@ export function Wizard() {
   const finish = form.handleSubmit(
     (data) => {
       setCompleted(data);
-      router.push("/");
+      router.push("/report/");
       window.scrollTo(0, 0);
     },
     (errors) => {
@@ -48,11 +52,12 @@ export function Wizard() {
   return (
     <div ref={top} className="scroll-mt-40 space-y-5">
       <div>
+        {demoTitle && <p className="mb-1 inline-block rounded-full bg-info-bg px-3 py-0.5 text-[13px] font-semibold text-info">Demo case: {demoTitle} (synthetic)</p>}
         <h1 className="text-[28px] font-semibold leading-tight tracking-tight">{step.label}</h1>
         <p className="text-[15px] text-ink-muted">Step {i + 1} of {STEPS.length}</p>
       </div>
 
-      <ol className="grid grid-cols-5 gap-1.5" aria-label="Assessment steps">
+      <ol className="grid grid-cols-6 gap-1" aria-label="Assessment steps">
         {STEPS.map((s, n) => (
           <li key={s.key}>
             <button
@@ -72,12 +77,12 @@ export function Wizard() {
 
       <form onSubmit={(e) => e.preventDefault()} noValidate>
         <step.Comp />
-        <div className="mt-6 flex gap-3">
+        <div className="no-print mt-6 flex gap-3">
           {i > 0 && <Button type="button" onClick={() => setI(i - 1)}>Back</Button>}
           {i < STEPS.length - 1 ? (
-            <Button type="button" variant="primary" className="flex-1" onClick={next}>Continue</Button>
+            <Button type="button" variant="primary" className="flex-1" onClick={next}>{i === STEPS.length - 2 ? "See triage summary" : "Continue"}</Button>
           ) : (
-            <Button type="button" variant="primary" className="flex-1" onClick={finish}>Finish assessment</Button>
+            <Button type="button" variant="primary" className="flex-1" onClick={finish}>Create report</Button>
           )}
         </div>
       </form>

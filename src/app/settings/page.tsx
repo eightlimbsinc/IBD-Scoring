@@ -19,7 +19,7 @@ export default function SettingsPage() {
         <div>
           <p className="text-[14px] font-semibold text-ink-muted">Warning thresholds (proposed defaults)</p>
           <ul className="mt-1 list-disc space-y-1 pl-5">
-            {Object.values(LOCAL_PROTOCOL.thresholds).map((t) => <li key={t.rule}>{t.rule}</li>)}
+            {Object.values(LOCAL_PROTOCOL.thresholds).filter((t) => t.rule).map((t) => <li key={t.rule}>{t.rule}</li>)}
           </ul>
         </div>
       </Card>

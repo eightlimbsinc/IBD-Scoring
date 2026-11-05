@@ -393,7 +393,7 @@ These generate **warnings**, not scores. A warning is shown regardless of diseas
 - App rule: warning when **inability to pass stool/gas = Yes**, or **vomiting AND distension = Yes**. **Open question OB-1.**
 
 ### 5.5 Severe gastrointestinal bleeding
-- No IBD-specific validated bleeding score. Rule uses haemodynamics + bleeding: rectal bleeding = Yes **and** (SBP < 90 **or** HR > 100 **or** shock index HR/SBP ≥ 1.0 **or** Hb < 7 g/dL).
+- No IBD-specific validated bleeding score. Rule uses haemodynamics + bleeding: rectal bleeding = Yes **and** (SBP < 90 **or** shock index HR/SBP ≥ 1.0 **or** Hb < 7 g/dL).
 - These thresholds are **category D (locally configured)** — common emergency-medicine cut-offs, not IBD-specific. **Open question BL-1.**
 
 ### 5.6 Sepsis

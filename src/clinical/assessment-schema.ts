@@ -158,6 +158,46 @@ export const assessmentSchema = z
       weightKg: optNum(1, 350),
       heightCm: optNum(40, 250),
     }),
+    activity: z.object({
+      wellBeing5: z.enum(["", "0", "1", "2", "3", "4", "unknown"]),
+      // SCCAI
+      dayStools: optNum(0, 60, { int: true }),
+      nightStools: optNum(0, 30, { int: true }),
+      urgency: z.enum(["", "0", "1", "2", "3", "unknown"]),
+      sccaiBlood: z.enum(["", "0", "1", "2", "3", "unknown"]),
+      extracolonicUc: z.array(z.enum(["arthritis", "uveitis", "erythema_nodosum", "pyoderma_gangrenosum"])),
+      extracolonicUcAssessed: triState,
+      // Mayo
+      mayoBleeding: z.enum(["", "0", "1", "2", "3", "unknown"]),
+      mayoPga: z.enum(["", "0", "1", "2", "3", "not_assessed"]),
+      mayoEndoscopy: z.enum(["", "0", "1", "2", "3", "not_done"]),
+      // Lichtiger
+      lichtigerBlood: z.enum(["", "0", "1", "2", "3", "unknown"]),
+      incontinence: triState,
+      antidiarrheals: triState,
+      wellBeing6: z.enum(["", "0", "1", "2", "3", "4", "5", "unknown"]),
+      // PUCAI
+      pucaiPain: z.enum(["", "0", "5", "10", "unknown"]),
+      pucaiBleeding: z.enum(["", "0", "10", "20", "30", "unknown"]),
+      pucaiConsistency: z.enum(["", "0", "5", "10", "unknown"]),
+      pucaiActivity: z.enum(["", "0", "5", "10", "unknown"]),
+      // HBI
+      liquidStoolsPrevDay: optNum(0, 60, { int: true }),
+      hbiComplications: z.array(z.enum(["arthralgia", "uveitis", "erythema_nodosum", "aphthous_ulcers", "pyoderma_gangrenosum", "anal_fissure", "new_fistula", "abscess"])),
+      hbiComplicationsAssessed: triState,
+      // PDAI
+      pdaiDischarge: z.enum(["", "0", "1", "2", "3", "4", "not_assessed"]),
+      pdaiPain: z.enum(["", "0", "1", "2", "3", "4", "not_assessed"]),
+      pdaiSexual: z.enum(["", "0", "1", "2", "3", "4", "not_assessed"]),
+      pdaiType: z.enum(["", "0", "1", "2", "3", "4", "not_assessed"]),
+      pdaiInduration: z.enum(["", "0", "1", "2", "3", "4", "not_assessed"]),
+    }),
+    imaging: z.object({
+      done: triState,
+      colonicDilatation: triState,
+      freeAir: triState,
+      collection: triState,
+    }),
     labs: z.object({
       values: z.object(Object.fromEntries(NUMERIC_LABS.map((a) => [a, labValue])) as Record<Analyte, typeof labValue>),
       cdiff: stoolTest,
@@ -224,6 +264,14 @@ export function emptyAssessment(): AssessmentInput {
       heartRate: "" as never, sbp: "" as never, dbp: "" as never, temperature: "" as never, temperatureUnit: "C",
       respiratoryRate: "" as never, spo2: "" as never, weightKg: "" as never, heightCm: "" as never,
     },
+    activity: {
+      wellBeing5: "", dayStools: "" as never, nightStools: "" as never, urgency: "", sccaiBlood: "",
+      extracolonicUc: [], extracolonicUcAssessed: "", mayoBleeding: "", mayoPga: "", mayoEndoscopy: "",
+      lichtigerBlood: "", incontinence: "", antidiarrheals: "", wellBeing6: "", pucaiPain: "", pucaiBleeding: "",
+      pucaiConsistency: "", pucaiActivity: "", liquidStoolsPrevDay: "" as never, hbiComplications: [],
+      hbiComplicationsAssessed: "", pdaiDischarge: "", pdaiPain: "", pdaiSexual: "", pdaiType: "", pdaiInduration: "",
+    },
+    imaging: { done: "", colonicDilatation: "", freeAir: "", collection: "" },
     labs: {
       values: Object.fromEntries(
         NUMERIC_LABS.map((a) => [a, { status: "", value: "" as never, unit: ANALYTES[a].canonical, flag: "" }]),

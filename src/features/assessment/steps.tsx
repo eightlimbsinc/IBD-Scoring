@@ -309,6 +309,25 @@ function StoolTest({ k, label }: { k: "cdiff" | "stoolOther"; label: string }) {
   );
 }
 
+function ImagingFields() {
+  const { register, control } = useF();
+  const done = useWatch({ control, name: "imaging.done" });
+  return (
+    <>
+      <Field label="Abdominal imaging done">
+        <Segmented name="imgdone" reg={register("imaging.done")} options={{ yes: "Yes", no: "No", unknown: "Not known" }} />
+      </Field>
+      {done === "yes" && (
+        <>
+          <Field label="Colonic dilatation (transverse colon > 6 cm)"><Segmented name="dil" reg={register("imaging.colonicDilatation")} options={TRI_OPTIONS} /></Field>
+          <Field label="Free air (pneumoperitoneum)"><Segmented name="air" reg={register("imaging.freeAir")} options={TRI_OPTIONS} /></Field>
+          <Field label="Abscess / collection"><Segmented name="col" reg={register("imaging.collection")} options={TRI_OPTIONS} /></Field>
+        </>
+      )}
+    </>
+  );
+}
+
 export function LabsStep() {
   return (
     <div className="space-y-5">
@@ -317,45 +336,13 @@ export function LabsStep() {
           {NUMERIC_LABS.map((a) => <LabRow key={a} a={a} />)}
         </div>
       </Card>
+      <Card title="Imaging (if done)" subtitle="From an X-ray, CT or ultrasound report. Leave blank if no imaging yet.">
+        <ImagingFields />
+      </Card>
       <Card title="Stool tests">
         <StoolTest k="cdiff" label="C. difficile" />
         <StoolTest k="stoolOther" label="Other stool infection" />
       </Card>
-    </div>
-  );
-}
-
-/* ---------------- Step 5: Review ---------------- */
-
-export function ReviewStep() {
-  const { control } = useF();
-  const v = useWatch({ control }) as F;
-  const p = v.patient;
-  const labsDone = NUMERIC_LABS.filter((a) => v.labs?.values?.[a]?.status === "resulted").length;
-  const labsUnset = NUMERIC_LABS.filter((a) => !v.labs?.values?.[a]?.status).length;
-  const vitalsMissing = (["heartRate", "sbp", "dbp", "temperature", "respiratoryRate", "spo2"] as const).filter((k) => num(v.vitals?.[k]) == null);
-  const VLABEL: Record<string, string> = { heartRate: "Heart rate", sbp: "Systolic BP", dbp: "Diastolic BP", temperature: "Temperature", respiratoryRate: "Respiratory rate", spo2: "SpO₂" };
-
-  return (
-    <div className="space-y-5">
-      <Banner tone="incomplete" title="Scores and emergency warnings are not switched on yet">
-        They will appear here once your gastroenterologist signs off the scoring specification. Until then, this screen does <strong>not</strong> check for danger signs — use your usual triage process.
-      </Banner>
-      <Card title="Summary of what was entered">
-        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-[16px]">
-          <dt className="text-ink-muted">Case</dt><dd className="font-semibold">{p?.caseId || "—"}</dd>
-          <dt className="text-ink-muted">Diagnosis</dt><dd>{p?.diagnosis ? DIAGNOSES[p.diagnosis as keyof typeof DIAGNOSES] : "—"}</dd>
-          <dt className="text-ink-muted">Age</dt><dd>{num(p?.ageYears) ?? "—"}</dd>
-          <dt className="text-ink-muted">Labs resulted</dt><dd>{labsDone} of {NUMERIC_LABS.length}{labsUnset ? ` · ${labsUnset} with no status` : ""}</dd>
-          <dt className="text-ink-muted">C. difficile</dt><dd>{v.labs?.cdiff?.status ? LAB_STATUS[v.labs.cdiff.status as keyof typeof LAB_STATUS] : "Not recorded"}</dd>
-        </dl>
-        {vitalsMissing.length > 0 && (
-          <Banner tone="incomplete" title="Missing vital signs">{vitalsMissing.map((k) => VLABEL[k]).join(", ")}</Banner>
-        )}
-      </Card>
-      <Banner tone="info" title="Nothing is saved">
-        This assessment exists only on this screen. Closing or reloading the app erases it. Printing and export come in the next phase.
-      </Banner>
     </div>
   );
 }

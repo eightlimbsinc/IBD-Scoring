@@ -225,7 +225,7 @@ Each rule: `id`, `category` (B or D), `severity` (`emergency` | `warning` | `inf
 | W-TOXIC-MEGACOLON-POSSIBLE | emergency | B/D | abdominal distension = yes + ≥ 3 systemic criteria above, imaging not available (TM-1) | Jalan 1969 (adapted) |
 | W-PERITONISM | emergency | B | guarding/rigidity/rebound = yes, or Lichtiger tenderness = severe_or_rebound, or free air on imaging | WSES-AAST 2021 |
 | W-OBSTRUCTION | emergency | B | cannot pass stool/gas = yes, **or** (vomiting = yes **and** distension = yes) (OB-1) | WSES-AAST 2021 |
-| W-BLEEDING | emergency | D | rectal bleeding = yes **and** (SBP < 90 or HR > 100 or HR/SBP ≥ 1.0 or Hb < 7 g/dL) (BL-1) | local |
+| W-BLEEDING | emergency | D | rectal bleeding = yes **and** (SBP < 90 or HR/SBP ≥ 1.0 or Hb < 7 g/dL) (BL-1) | local |
 | W-SEPSIS | emergency | B | qSOFA ≥ 2, or (SIRS ≥ 2 and fever/suspected infection), or lactate ≥ 2 mmol/L (SP-1) | Sepsis-3; SSC 2021 |
 | W-HYPOTENSION | emergency | D | SBP < 90 or MAP < 65 (VS-1) | local |
 | W-TACHY-MARKED | emergency | D | HR > 120 | local |

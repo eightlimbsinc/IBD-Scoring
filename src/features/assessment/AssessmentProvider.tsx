@@ -16,6 +16,9 @@ interface Ctx {
   completed: Assessment | null;
   setCompleted: (a: Assessment | null) => void;
   reset: () => void;
+  /** Title of the loaded synthetic demo case, if any. */
+  demoTitle: string | null;
+  loadDemo: (title: string, input: AssessmentInput) => void;
 }
 
 const AssessmentContext = createContext<Ctx | null>(null);
@@ -28,6 +31,7 @@ export function AssessmentProvider({ children }: { children: ReactNode }) {
   });
   const [started, setStarted] = useState(false);
   const [completed, setCompleted] = useState<Assessment | null>(null);
+  const [demoTitle, setDemoTitle] = useState<string | null>(null);
 
   // Warn before the tab is closed or reloaded with an open assessment — nothing is stored.
   useEffect(() => {
@@ -44,10 +48,18 @@ export function AssessmentProvider({ children }: { children: ReactNode }) {
     form.reset(emptyAssessment());
     setStarted(false);
     setCompleted(null);
+    setDemoTitle(null);
+  };
+
+  const loadDemo = (title: string, input: AssessmentInput) => {
+    form.reset(input);
+    setStarted(true);
+    setCompleted(null);
+    setDemoTitle(title);
   };
 
   return (
-    <AssessmentContext.Provider value={{ form, started, setStarted, completed, setCompleted, reset }}>
+    <AssessmentContext.Provider value={{ form, started, setStarted, completed, setCompleted, reset, demoTitle, loadDemo }}>
       <FormProvider {...form}>{children}</FormProvider>
     </AssessmentContext.Provider>
   );
