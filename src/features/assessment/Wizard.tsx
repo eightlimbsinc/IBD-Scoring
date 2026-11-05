@@ -65,7 +65,7 @@ export function Wizard() {
               onClick={() => setI(n)}
               aria-current={n === i ? "step" : undefined}
               className={cx(
-                "focus-ring w-full truncate rounded-xl px-0.5 py-2 text-[12px] font-semibold",
+                "focus-ring w-full truncate rounded-chip px-0.5 py-2 text-[12px] font-semibold",
                 n === i ? "pressed bg-info-bg text-accent" : "raised-sm text-ink-muted",
               )}
             >

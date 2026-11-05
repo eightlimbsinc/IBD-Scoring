@@ -47,7 +47,7 @@ const bandTone = (s: ScoreResult): Tone =>
 export function ScoreCard({ s, interactive = true, open = false }: { s: ScoreResult; interactive?: boolean; open?: boolean }) {
   const range = `${s.range.min}–${s.range.max ?? "open"}`;
   return (
-    <div className="raised-sm rounded-2xl p-4">
+    <div className="raised-sm rounded-ctl p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[17px] font-semibold">{s.scoreName}</p>
@@ -100,7 +100,7 @@ export function TriageSummary({ out, interactive = true }: { out: AssessmentOutp
   const emergencyCount = out.warnings.filter((w) => w.severity === "emergency").length;
   return (
     <div className="space-y-5">
-      <div className={cx("rounded-3xl border-2 p-5", {
+      <div className={cx("alert rounded-card border-2 p-5", lvl.tone === "emergency" && "hero-emergency", {
         emergency: "border-emergency bg-emergency-bg", severe: "border-severe bg-severe-bg", moderate: "border-moderate bg-moderate-bg",
         lower: "border-lower bg-lower-bg", incomplete: "border-dashed border-incomplete bg-incomplete-bg", info: "border-info bg-info-bg",
       }[lvl.tone])}>
@@ -123,7 +123,7 @@ export function TriageSummary({ out, interactive = true }: { out: AssessmentOutp
             {g.id === "physiological" && out.qsofa && out.sirs && (
               <div className="grid grid-cols-2 gap-3">
                 {([["qSOFA", out.qsofa, 3], ["SIRS", out.sirs, 4]] as const).map(([name, x, max]) => (
-                  <div key={name} className="well rounded-2xl p-3">
+                  <div key={name} className="well rounded-ctl p-3">
                     <p className="text-[13px] font-semibold text-ink-muted">{name}</p>
                     <p className="text-2xl font-semibold tabular-nums">{x.count}<span className="text-[14px] text-ink-muted"> / {max}</span></p>
                     {x.unknown.length > 0 && <p className="text-[12px] text-ink-muted">Unknown: {x.unknown.map((u) => u.split(" (")[0]).join(", ")}</p>}
@@ -152,7 +152,7 @@ export function TriageSummary({ out, interactive = true }: { out: AssessmentOutp
         ) : (
           <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {out.missingInvestigations.map((m) => (
-              <li key={m.id} className="flex items-center justify-between gap-2 rounded-xl border border-dashed border-incomplete px-3 py-2 text-[15px]">
+              <li key={m.id} className="flex items-center justify-between gap-2 rounded-chip border border-dashed border-incomplete px-3 py-2 text-[15px]">
                 <span>{m.label}</span><Badge tone="incomplete">{m.status}</Badge>
               </li>
             ))}

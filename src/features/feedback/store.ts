@@ -65,7 +65,7 @@ const FORM_ENDPOINT = "/__forms.html";
 let sending = false;
 
 /** Fields sent for one note. Only the comment and its context — never patient identifiers. */
-export function formFields(n: FeedbackNote, reviewer: string, specVersion: string): Record<string, string> {
+export function formFields(n: FeedbackNote, reviewer: string, specVersion: string, theme = ""): Record<string, string> {
   return {
     "form-name": FORM_NAME,
     reviewer: reviewer || "(not given)",
@@ -75,6 +75,7 @@ export function formFields(n: FeedbackNote, reviewer: string, specVersion: strin
     "demo-case": n.caseTitle ?? "",
     "written-at": n.at,
     "spec-version": specVersion,
+    theme,
   };
 }
 
@@ -90,7 +91,7 @@ export async function sendPending(specVersion = SPEC_VERSION): Promise<{ sent: n
         const res = await fetch(FORM_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formFields(n, getReviewerName(), specVersion)).toString(),
+          body: new URLSearchParams(formFields(n, getReviewerName(), specVersion, document.documentElement.dataset.theme || "soft")).toString(),
         });
         if (!res.ok) throw new Error(String(res.status));
         write(read().map((x) => (x.id === n.id ? { ...x, status: "sent" } : x)));

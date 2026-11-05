@@ -18,7 +18,7 @@ function Checks({ name, options }: { name: "activity.extracolonicUc" | "activity
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
       {Object.entries(options).map(([v, l]) => (
-        <label key={v} className="raised-sm flex min-h-12 cursor-pointer items-center gap-3 rounded-2xl px-4 has-checked:pressed has-checked:bg-info-bg">
+        <label key={v} className="raised-sm flex min-h-12 cursor-pointer items-center gap-3 rounded-ctl px-4 has-checked:pressed has-checked:bg-info-bg">
           <input type="checkbox" value={v} {...register(name)} className="h-5 w-5 accent-[var(--accent)]" />
           <span className="text-[15px] font-medium">{l}</span>
         </label>

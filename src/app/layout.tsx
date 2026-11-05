@@ -4,6 +4,7 @@ import { AssessmentProvider } from "@/features/assessment/AssessmentProvider";
 import { AppShell } from "@/features/shell/AppShell";
 import { RegisterSW } from "@/features/shell/RegisterSW";
 import { FeedbackSync } from "@/features/feedback/FeedbackSync";
+import { THEME_BOOT_SCRIPT } from "@/features/shell/theme";
 
 export const metadata: Metadata = {
   title: "IBD Emergency Assessment",
@@ -27,7 +28,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+      </head>
       <body>
         <RegisterSW />
         <FeedbackSync />

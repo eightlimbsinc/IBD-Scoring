@@ -48,7 +48,7 @@ export default function FeedbackPage() {
         {notes.length === 0 ? <p className="text-ink-muted">No comments yet.</p> : (
           <ul className="space-y-3">
             {notes.map((n) => (
-              <li key={n.id} className="raised-sm rounded-2xl p-3">
+              <li key={n.id} className="raised-sm rounded-ctl p-3">
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-[13px] font-semibold text-ink-muted">{n.label}{n.caseTitle ? ` · ${n.caseTitle}` : ""}</p>
                   {n.status === "sent" ? <Badge tone="lower">✓ Sent</Badge> : <Badge tone="incomplete">Not sent yet</Badge>}

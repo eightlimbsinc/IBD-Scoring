@@ -22,7 +22,7 @@ export default function ReferencePage() {
         <Card key={g.title} title={g.title}>
           <ul className="space-y-3">
             {g.items.map((s) => (
-              <li key={s.id} className="raised-sm rounded-2xl p-4">
+              <li key={s.id} className="raised-sm rounded-ctl p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-[17px] font-semibold">{s.name}</p>
                   <Badge tone={STATUS[s.specStatus].tone}>{STATUS[s.specStatus].label}</Badge>

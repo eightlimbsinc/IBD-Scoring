@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
-/* Soft clinical design system — neumorphism adapted for legibility.
+/* Three themes share one set of tokens (set on <html data-theme="…">):
+   soft     — neumorphic "soft clinical" (default)
+   er       — flat, high-contrast, compact: modelled on ED tracking boards and bedside calculators
+   er-night — dark version of ER for night shifts / dim rooms
    Shadows are decoration only; every control also has a visible border and focus ring. */
 :root {
   --bg: #e6ebf1;
@@ -13,6 +16,22 @@
   --focus: #1f5fbf;
   --accent: #134e8a;
   --accent-ink: #ffffff;
+  --field-bg: rgba(255, 255, 255, 0.6);
+
+  --raised-border: 1px solid rgba(255, 255, 255, 0.6);
+  --raised-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+  --raised-sm-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+  --well-bg: var(--surface);
+  --well-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+  --pressed-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+  --pressed-bg: var(--info-bg);
+  --primary-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+  --r-lg: 1.5rem;
+  --r-md: 1rem;
+  --r-sm: 0.75rem;
+  --pad-card: 1.25rem;
+  --gap-card: 1.25rem;
+  --alert-edge: 2px;
 
   --emergency: #b42318;
   --emergency-bg: #fde8e6;
@@ -26,6 +45,75 @@
   --incomplete-bg: #e1e6ec;
   --info: #134e8a;
   --info-bg: #e0ebf7;
+  color-scheme: light;
+}
+
+:root[data-theme="er"] {
+  --bg: #eef1f5;
+  --surface: #ffffff;
+  --ink: #0b1f33;
+  --ink-muted: #44546a;
+  --line: #b9c3d0;
+  --focus: #0b5cad;
+  --accent: #0b5cad;
+  --field-bg: #ffffff;
+  --raised-border: 1px solid var(--line);
+  --raised-shadow: 0 1px 2px rgba(11, 31, 51, 0.08);
+  --raised-sm-shadow: none;
+  --well-bg: #ffffff;
+  --well-shadow: none;
+  --pressed-shadow: inset 0 0 0 1px var(--accent);
+  --pressed-bg: #e3eefa;
+  --primary-shadow: none;
+  --r-lg: 0.625rem;
+  --r-md: 0.5rem;
+  --r-sm: 0.375rem;
+  --pad-card: 1rem;
+  --gap-card: 0.875rem;
+  --alert-edge: 6px;
+  --incomplete-bg: #eef1f5;
+  --info: #0b5cad;
+  --info-bg: #e3eefa;
+}
+
+:root[data-theme="er-night"] {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --ink: #e6edf3;
+  --ink-muted: #a3adb9;
+  --line: #3b4552;
+  --focus: #79b8ff;
+  --accent: #1f6feb;
+  --accent-ink: #ffffff;
+  --field-bg: #0d1117;
+  --raised-border: 1px solid var(--line);
+  --raised-shadow: none;
+  --raised-sm-shadow: none;
+  --well-bg: #0d1117;
+  --well-shadow: none;
+  --pressed-shadow: inset 0 0 0 1px #79b8ff;
+  --pressed-bg: #12263f;
+  --primary-shadow: none;
+  --r-lg: 0.625rem;
+  --r-md: 0.5rem;
+  --r-sm: 0.375rem;
+  --pad-card: 1rem;
+  --gap-card: 0.875rem;
+  --alert-edge: 6px;
+
+  --emergency: #ff7b72;
+  --emergency-bg: #3d1513;
+  --severe: #ffa657;
+  --severe-bg: #3a2410;
+  --moderate: #e3b341;
+  --moderate-bg: #33290d;
+  --lower: #56d364;
+  --lower-bg: #0f2a18;
+  --incomplete: #a3adb9;
+  --incomplete-bg: #21262d;
+  --info: #79b8ff;
+  --info-bg: #102a43;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -47,6 +135,11 @@
   --color-incomplete-bg: var(--incomplete-bg);
   --color-info: var(--info);
   --color-info-bg: var(--info-bg);
+  --color-surface: var(--surface);
+  --color-field: var(--field-bg);
+  --radius-card: var(--r-lg);
+  --radius-ctl: var(--r-md);
+  --radius-chip: var(--r-sm);
 }
 
 html {
@@ -63,22 +156,23 @@ body {
 
 @utility raised {
     background: var(--surface);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+    border: var(--raised-border);
+    box-shadow: var(--raised-shadow);
 }
 @utility raised-sm {
     background: var(--surface);
     border: 1px solid var(--line);
-    box-shadow: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+    box-shadow: var(--raised-sm-shadow);
 }
 @utility well {
-    background: var(--surface);
+    background: var(--well-bg);
     border: 1px solid var(--line);
-    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    box-shadow: var(--well-shadow);
 }
 @utility pressed {
     border: 1px solid var(--accent);
-    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    background: var(--pressed-bg);
+    box-shadow: var(--pressed-shadow);
 }
 @utility focus-ring {
   &:focus-visible {
@@ -102,7 +196,22 @@ body {
   * { transition: none !important; animation: none !important; }
 }
 
+/* ER themes: thick coloured edge on every alert; emergency summary becomes solid red with white text. */
+:root[data-theme^="er"] .alert { border-width: 1px; border-left-width: var(--alert-edge); }
+:root[data-theme^="er"] .hero-emergency { background: var(--emergency); border-color: var(--emergency); color: #fff; }
+:root[data-theme^="er"] .hero-emergency * { color: #fff !important; }
+:root[data-theme="er-night"] .hero-emergency { background: #b42318; border-color: #ff7b72; }
+:root[data-theme="er-night"] .text-accent { color: #79b8ff; } /* accent stays #1f6feb for buttons (white text); brighter for text on dark */
+:root[data-theme^="er"] .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); }
+
 @media print {
+  /* Always print in the light palette, whatever the screen theme. */
+  :root, :root[data-theme] {
+    --bg: #fff; --surface: #fff; --ink: #0b2545; --ink-muted: #3f5068; --line: #999; --accent: #134e8a;
+    --emergency: #b42318; --emergency-bg: #fde8e6; --severe: #a64205; --severe-bg: #fdeedc; --moderate: #7a5600; --moderate-bg: #fbf1d3;
+    --lower: #0b6e55; --lower-bg: #dcf3ea; --incomplete: #3f5068; --incomplete-bg: #e1e6ec; --info: #134e8a; --info-bg: #e0ebf7;
+    color-scheme: light;
+  }
   body { background: #fff; }
   .no-print { display: none !important; }
   .raised, .raised-sm, .well { box-shadow: none !important; border: 1px solid #999 !important; }

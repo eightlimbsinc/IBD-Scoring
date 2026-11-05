@@ -1,11 +1,17 @@
 import { LOCAL_PROTOCOL } from "@/clinical/spec/local-protocol";
 import { APP_VERSION, SPEC_VERSION } from "@/clinical/spec/version";
 import { Badge, Card } from "@/ui/primitives";
+import { ThemePicker } from "@/features/shell/ThemePicker";
+import { FeedbackButton } from "@/features/feedback/FeedbackButton";
 
 export default function SettingsPage() {
   return (
     <div className="space-y-5">
       <h1 className="text-[28px] font-semibold leading-tight tracking-tight">Settings</h1>
+      <Card title="Theme" subtitle="Changes only the look. Layout, alert colours and rules are the same in every theme.">
+        <ThemePicker />
+        <FeedbackButton target="screen:theme" label="Theme / look" />
+      </Card>
       <Card title="Local protocol" subtitle="Hospital-set values. Changed only through a reviewed code change, not on the device.">
         <div><Badge tone="moderate">Pending gastroenterologist sign-off</Badge></div>
         <div>

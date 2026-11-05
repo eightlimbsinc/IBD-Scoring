@@ -20,8 +20,8 @@ function Current() {
       {demoTitle && <Badge tone="info">Demo: {demoTitle}</Badge>}
       {level && <Banner tone={tone} title={level.headline}>{level.incomplete ? `Incomplete: ${level.reasons.join(" · ")}` : null}</Banner>}
       <div className="flex gap-3">
-        <Link href="/assess/" className="focus-ring raised-sm flex min-h-12 flex-1 items-center justify-center rounded-2xl px-4 font-semibold">Open assessment</Link>
-        <Link href="/report/" className="focus-ring raised-sm flex min-h-12 flex-1 items-center justify-center rounded-2xl px-4 font-semibold">Report</Link>
+        <Link href="/assess/" className="focus-ring raised-sm flex min-h-12 flex-1 items-center justify-center rounded-ctl px-4 font-semibold">Open assessment</Link>
+        <Link href="/report/" className="focus-ring raised-sm flex min-h-12 flex-1 items-center justify-center rounded-ctl px-4 font-semibold">Report</Link>
       </div>
       <Button type="button" onClick={() => { if (confirm("Discard this assessment? It is not stored anywhere.")) reset(); }}>Discard</Button>
     </Card>
@@ -38,7 +38,7 @@ export default function Home() {
 
       {started ? <Current /> : (
         <Card title="New assessment" subtitle="Structured assessment for a patient with known or suspected IBD.">
-          <Link href="/assess/" className="focus-ring block rounded-2xl bg-accent px-5 py-4 text-center text-[17px] font-semibold text-white shadow-[4px_4px_10px_var(--shadow-dark),-4px_-4px_10px_var(--shadow-light)]">
+          <Link href="/assess/" className="focus-ring block rounded-ctl bg-accent px-5 py-4 text-center text-[17px] font-semibold text-white shadow-[var(--primary-shadow)]">
             Start new assessment
           </Link>
         </Card>
@@ -55,7 +55,7 @@ export default function Home() {
                   loadDemo(c.title, c.input());
                   router.push("/assess/?step=result");
                 }}
-                className="focus-ring raised-sm w-full rounded-2xl px-4 py-3 text-left active:pressed"
+                className="focus-ring raised-sm w-full rounded-ctl px-4 py-3 text-left active:pressed"
               >
                 <p className="font-semibold">{c.title}</p>
                 <p className="text-[14px] text-ink-muted">{c.summary}</p>

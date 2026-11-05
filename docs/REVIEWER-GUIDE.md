@@ -28,6 +28,7 @@ Once installed, the app opens even without signal. Changes we make appear automa
 4. Tap the steps at the top (**Patient · Exam · Scores · Vitals · Labs**) to change answers. The summary updates immediately.
 5. Tap **Create report**, then **Save / share PDF** to get the report as a PDF (send it to yourself, save to Files or Drive).
 6. You can also tap **Assess** and enter your own made-up case from scratch.
+7. Try the three **themes**: tap the palette icon (top right). **Soft** is the original look, **ER** is flat and high-contrast like hospital ER systems, **ER Night** is the dark version. Tell us which works best for the ER (there's a 💬 Comment button there too).
 
 ## 3. Leave feedback
 
@@ -42,6 +43,7 @@ Once installed, the app opens even without signal. Changes we make appear automa
 - Do the warning thresholds match your practice? Tachycardia > 100 / > 120, SBP < 90, CRP > 30 mg/L for acute severe UC, and the paediatric pathway under 18. They are listed under **Feedback → Settings and local protocol values**.
 - Is the line under every emergency warning ("Inform the responsible doctor now, per local protocol") worded as you want?
 - Should nurses and interns enter exam findings (guarding, tenderness, abdominal mass)? Currently they can, with a "Not assessed" option.
+- Which theme should be the default for nurses and interns?
 - Anything missing from the ER workflow you'd expect?
 
 ## Good to know

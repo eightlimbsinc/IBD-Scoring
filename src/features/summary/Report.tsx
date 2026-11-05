@@ -113,13 +113,13 @@ export function Report() {
         <FeedbackButton target="screen:report" label="Report layout" />
       </div>
 
-      <article className="raised rounded-3xl bg-white/40 p-5 print:rounded-none print:p-0">
+      <article className="raised rounded-card p-5 print:rounded-none print:p-0">
         <header className="space-y-1">
           {demoTitle && <p className="font-semibold text-info">SYNTHETIC DEMO CASE — {demoTitle}. Not a real patient.</p>}
           <p className="text-[13px] font-semibold uppercase tracking-wider text-ink-muted">IBD Emergency Assessment Report</p>
           <h2 className="text-[24px] font-semibold">Case {p.caseId}{p.name ? ` · ${p.name}` : ""}</h2>
           <p className="text-[14px]">Assessed {new Date(p.assessedAt).toLocaleString()} · Report generated {new Date(out.calculatedAt).toLocaleString()}</p>
-          <p className="rounded-xl border-2 border-severe bg-severe-bg p-2 text-[14px] font-semibold text-severe">{DISCLAIMER}</p>
+          <p className="rounded-chip border-2 border-severe bg-severe-bg p-2 text-[14px] font-semibold text-severe">{DISCLAIMER}</p>
           <p className="text-[13px] text-ink-muted">DRAFT rules — scoring specification {SPEC_VERSION} not yet signed off by a gastroenterologist.</p>
         </header>
 

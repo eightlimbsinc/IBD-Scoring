@@ -26,10 +26,18 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div>
             <p className="text-[13px] font-semibold uppercase tracking-wider text-ink-muted">IBD Emergency Assessment</p>
           </div>
-          <ConnectionStatus />
+          <div className="flex items-center gap-2">
+            <ConnectionStatus />
+            <Link href="/settings/" aria-label="Theme and settings" className="focus-ring raised-sm flex h-9 w-9 items-center justify-center rounded-full text-ink-muted">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3a9 9 0 100 18c1 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.8.7-1.5 1.5-1.5H16a5 5 0 005-5c0-4.4-4-7.8-9-7.8z" />
+                <circle cx="7.5" cy="11" r="1" /><circle cx="10" cy="7.5" r="1" /><circle cx="14.5" cy="7.5" r="1" />
+              </svg>
+            </Link>
+          </div>
         </div>
         {!CLINICALLY_APPROVED && (
-          <p className="mt-2 rounded-xl border border-severe bg-severe-bg px-3 py-1 text-[12px] font-semibold text-severe">
+          <p className="mt-2 rounded-chip border border-severe bg-severe-bg px-3 py-1 text-[12px] font-semibold text-severe">
             Draft for clinical review · not for patient care · spec {SPEC_VERSION}
           </p>
         )}
@@ -47,7 +55,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   href={n.href}
                   aria-current={active ? "page" : undefined}
                   className={cx(
-                    "focus-ring flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-2xl text-[11px] font-semibold",
+                    "focus-ring flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-ctl text-[11px] font-semibold",
                     active ? "pressed text-accent" : "raised-sm text-ink-muted",
                   )}
                 >

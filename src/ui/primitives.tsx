@@ -9,10 +9,10 @@ export function cx(...c: (string | false | null | undefined)[]) {
 
 export function Card({ title, subtitle, children, className }: { title?: string; subtitle?: string; children: ReactNode; className?: string }) {
   return (
-    <section className={cx("raised rounded-3xl p-5", className)}>
-      {title && <h2 className="text-xl font-semibold tracking-tight">{title}</h2>}
+    <section className={cx("raised rounded-card p-[var(--pad-card)]", className)}>
+      {title && <h2 className="section-title text-xl font-semibold tracking-tight">{title}</h2>}
       {subtitle && <p className="mt-1 text-[15px] text-ink-muted">{subtitle}</p>}
-      <div className={cx(title && "mt-4", "space-y-5")}>{children}</div>
+      <div className={cx(title && "mt-4", "flex flex-col gap-[var(--gap-card)]")}>{children}</div>
     </section>
   );
 }
@@ -28,7 +28,7 @@ export function Field({ label, hint, error, htmlFor, children }: { label: string
   );
 }
 
-const inputCls = "well focus-ring w-full rounded-2xl px-4 py-3 text-[17px] placeholder:text-ink-muted/70";
+const inputCls = "well focus-ring w-full rounded-ctl px-4 py-3 text-[17px] placeholder:text-ink-muted/70";
 
 export const TextInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(function TextInput(props, ref) {
   return <input ref={ref} {...props} className={cx(inputCls, props.className)} />;
@@ -63,7 +63,7 @@ export function Segmented({ options, reg, name, columns }: { options: Record<str
           <input type="radio" value={value} {...reg} className="peer sr-only" id={`${name}-${value}`} />
           <span
             className={cx(
-              "raised-sm flex min-h-12 cursor-pointer items-center justify-center rounded-2xl px-3 py-2 text-center text-[15px] font-medium leading-tight",
+              "raised-sm flex min-h-12 cursor-pointer items-center justify-center rounded-ctl px-3 py-2 text-center text-[15px] font-medium leading-tight",
               "peer-checked:pressed peer-checked:bg-info-bg peer-checked:font-semibold peer-checked:text-accent",
               "peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus",
               value === "unknown" || value === "not_assessed" ? "italic" : "",
@@ -84,8 +84,8 @@ export function Button({ variant = "default", className, ...props }: React.Butto
     <button
       {...props}
       className={cx(
-        "focus-ring min-h-12 rounded-2xl px-5 py-3 text-[17px] font-semibold active:pressed disabled:opacity-50",
-        variant === "primary" && "bg-accent text-white shadow-[4px_4px_10px_var(--shadow-dark),-4px_-4px_10px_var(--shadow-light)]",
+        "focus-ring min-h-12 rounded-ctl px-5 py-3 text-[17px] font-semibold active:pressed disabled:opacity-50",
+        variant === "primary" && "bg-accent text-white shadow-[var(--primary-shadow)]",
         variant === "default" && "raised-sm",
         variant === "ghost" && "text-accent underline-offset-4 hover:underline",
         className,
@@ -109,7 +109,7 @@ const toneIcon: Record<Tone, string> = { emergency: "!", severe: "▲", moderate
 
 export function Banner({ tone, title, children }: { tone: Tone; title: string; children?: ReactNode }) {
   return (
-    <div role={tone === "emergency" ? "alert" : "status"} className={cx("rounded-2xl border-2 p-4", toneCls[tone])}>
+    <div role={tone === "emergency" ? "alert" : "status"} className={cx("alert rounded-ctl border-2 p-4", toneCls[tone])}>
       <div className="flex items-start gap-3">
         <span aria-hidden className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-current text-[13px] font-bold">
           {toneIcon[tone]}

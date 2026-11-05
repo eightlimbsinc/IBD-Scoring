@@ -90,7 +90,7 @@ export function PatientStep() {
         <Field label="Biologics, immunosuppressants and steroids" hint="These can hide fever and peritoneal signs.">
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {Object.entries(IMMUNO_MEDS).map(([v, l]) => (
-              <label key={v} className="raised-sm flex min-h-12 cursor-pointer items-center gap-3 rounded-2xl px-4 has-checked:pressed has-checked:bg-info-bg">
+              <label key={v} className="raised-sm flex min-h-12 cursor-pointer items-center gap-3 rounded-ctl px-4 has-checked:pressed has-checked:bg-info-bg">
                 <input type="checkbox" value={v} {...register("patient.immuno")} className="h-5 w-5 accent-[var(--accent)]" />
                 <span className="text-[15px] font-medium">{l}</span>
               </label>
@@ -237,11 +237,11 @@ export function VitalsStep() {
         </Field>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <div className="well rounded-2xl p-3">
+        <div className="well rounded-ctl p-3">
           <p className="text-[13px] font-semibold text-ink-muted">BMI (calculated)</p>
           <p className="text-2xl font-semibold tabular-nums">{b != null ? b.toFixed(1) : "—"}</p>
         </div>
-        <div className="well rounded-2xl p-3">
+        <div className="well rounded-ctl p-3">
           <p className="text-[13px] font-semibold text-ink-muted">MAP (calculated)</p>
           <p className="text-2xl font-semibold tabular-nums">{m != null ? `${Math.round(m)} mmHg` : "—"}</p>
         </div>
@@ -258,7 +258,7 @@ function LabRow({ a }: { a: (typeof NUMERIC_LABS)[number] }) {
   const def = ANALYTES[a];
   const units = Object.keys(def.units);
   return (
-    <div className="raised-sm space-y-3 rounded-2xl p-4">
+    <div className="raised-sm space-y-3 rounded-ctl p-4">
       <div className="flex items-center justify-between gap-3">
         <label htmlFor={`lab-${a}-status`} className="font-semibold">{def.label}</label>
         <Select id={`lab-${a}-status`} className="max-w-48 py-2 text-[15px]" {...register(`labs.values.${a}.status`)}>
@@ -290,7 +290,7 @@ function StoolTest({ k, label }: { k: "cdiff" | "stoolOther"; label: string }) {
   const { register, formState: { errors }, control } = useF();
   const status = useWatch({ control, name: `labs.${k}.status` });
   return (
-    <div className="raised-sm space-y-3 rounded-2xl p-4">
+    <div className="raised-sm space-y-3 rounded-ctl p-4">
       <div className="flex items-center justify-between gap-3">
         <label htmlFor={`st-${k}`} className="font-semibold">{label}</label>
         <Select id={`st-${k}`} className="max-w-48 py-2 text-[15px]" {...register(`labs.${k}.status`)}>
