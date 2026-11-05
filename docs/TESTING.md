@@ -1,6 +1,6 @@
 # Testing
 
-Run with `npm test` (Vitest). Status on 2026-11-05: **160 tests passing**, 5 files.
+Run with `npm test` (Vitest). Status on 2026-11-05: **162 tests passing**, 6 files.
 
 | File | What it covers |
 | --- | --- |

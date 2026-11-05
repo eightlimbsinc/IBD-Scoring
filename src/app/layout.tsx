@@ -3,6 +3,7 @@ import "./globals.css";
 import { AssessmentProvider } from "@/features/assessment/AssessmentProvider";
 import { AppShell } from "@/features/shell/AppShell";
 import { RegisterSW } from "@/features/shell/RegisterSW";
+import { FeedbackSync } from "@/features/feedback/FeedbackSync";
 
 export const metadata: Metadata = {
   title: "IBD Emergency Assessment",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <RegisterSW />
+        <FeedbackSync />
         <AssessmentProvider>
           <AppShell>{children}</AppShell>
         </AssessmentProvider>

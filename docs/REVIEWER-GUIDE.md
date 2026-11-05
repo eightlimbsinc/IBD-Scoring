@@ -33,7 +33,8 @@ Once installed, the app opens even without signal. Changes we make appear automa
 
 - Tap **💬 Comment** under any score or warning to note what should change: a threshold, wording, a missing item, something that should or shouldn't trigger.
 - Use the **Feedback** tab for general comments.
-- When finished, open **Feedback** and tap **Send feedback**. That opens your phone's share sheet, so you can send it by Messages, Viber, WhatsApp or email.
+- Each comment is **sent to the app team automatically**. Without signal, it waits and sends as soon as you're back online. The **Feedback** tab shows ✓ Sent or Not sent yet for each one.
+- Optional: **Share a copy** on the Feedback tab sends all your comments by Messages, Viber, WhatsApp or email.
 - Please don't type real patient details into comments.
 
 ## Useful things to look at

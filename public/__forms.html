@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Forms</title><meta name="robots" content="noindex"></head>
+<body>
+  <!-- Netlify Forms detection only: the app posts here with fetch(). Field names must match src/features/feedback/store.ts. -->
+  <form name="reviewer-feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input name="bot-field">
+    <input name="reviewer">
+    <input name="about">
+    <input name="target">
+    <textarea name="comment"></textarea>
+    <input name="demo-case">
+    <input name="written-at">
+    <input name="spec-version">
+  </form>
+</body>
+</html>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { SPEC_VERSION } from "@/clinical/spec/version";
 
 /**
  * Reviewer feedback notes. Stored in localStorage on purpose (it is not patient data),
@@ -13,6 +14,8 @@ export interface FeedbackNote {
   text: string;
   at: string;
   caseTitle?: string;
+  /** "sent" once Netlify Forms accepted it; missing/"pending" until then. */
+  status?: "sent" | "pending";
 }
 
 const KEY = "ibd-review-feedback-v1";
@@ -49,8 +52,57 @@ export function useFeedback() {
   );
 }
 
-export function saveNote(n: Omit<FeedbackNote, "id" | "at">) {
-  write([...read(), { ...n, id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, at: new Date().toISOString() }]);
+export function saveNote(n: Omit<FeedbackNote, "id" | "at" | "status">) {
+  write([...read(), { ...n, id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, at: new Date().toISOString(), status: "pending" }]);
+  void sendPending();
+}
+
+/* ---------- Netlify Forms delivery ---------- */
+
+/** Must match the hidden form in public/__forms.html (Netlify detects forms from static HTML at deploy time). */
+export const FORM_NAME = "reviewer-feedback";
+const FORM_ENDPOINT = "/__forms.html";
+let sending = false;
+
+/** Fields sent for one note. Only the comment and its context — never patient identifiers. */
+export function formFields(n: FeedbackNote, reviewer: string, specVersion: string): Record<string, string> {
+  return {
+    "form-name": FORM_NAME,
+    reviewer: reviewer || "(not given)",
+    about: n.label,
+    target: n.target,
+    comment: n.text,
+    "demo-case": n.caseTitle ?? "",
+    "written-at": n.at,
+    "spec-version": specVersion,
+  };
+}
+
+/** Sends every unsent note. Safe to call often: one run at a time; failures stay pending and retry later. */
+export async function sendPending(specVersion = SPEC_VERSION): Promise<{ sent: number; failed: number }> {
+  if (sending || typeof navigator === "undefined" || !navigator.onLine) return { sent: 0, failed: 0 };
+  sending = true;
+  let sent = 0;
+  let failed = 0;
+  try {
+    for (const n of read().filter((x) => x.status !== "sent")) {
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formFields(n, getReviewerName(), specVersion)).toString(),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        write(read().map((x) => (x.id === n.id ? { ...x, status: "sent" } : x)));
+        sent++;
+      } catch {
+        failed++;
+      }
+    }
+  } finally {
+    sending = false;
+  }
+  return { sent, failed };
 }
 
 export function deleteNote(id: string) {
@@ -72,7 +124,7 @@ export function feedbackText(notes: FeedbackNote[], reviewer: string, version: s
   const lines = [`IBD Assessment app — reviewer feedback`, `Reviewer: ${reviewer || "(not given)"}`, `App spec: ${version}`, `Exported: ${new Date().toLocaleString()}`, ""];
   const groups = new Map<string, FeedbackNote[]>();
   for (const n of notes) groups.set(n.label, [...(groups.get(n.label) ?? []), n]);
-  for (const [label, ns] of groups) {
+  for (const [label, ns] of Array.from(groups)) {
     lines.push(`■ ${label}`);
     for (const n of ns) lines.push(`  - ${n.text}${n.caseTitle ? `  [demo case: ${n.caseTitle}]` : ""}`);
     lines.push("");
